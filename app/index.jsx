@@ -1,23 +1,22 @@
 import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomePage from "../screens/HomePage";
-import CardScreen from "../screens/CardScreen";
+import HomeScreen from "../screens/HomeScreen";
+
 import SignUpScreen from "../screens/Register";
 import Login from "../screens/Login";
 import { ClickProvider } from "../context/ClickContext";
-import { NavigationContainer } from "@react-navigation/native";
+import CourseDetailsScreen from "../screens/CourseDetailsScreen";
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    // Wrap the navigator with the HeartCountProvider
+    
     <ClickProvider>
-      
       <Stack.Navigator initialRouteName="login">
         <Stack.Screen
           name="home"
-          component={HomePage}
+          component={HomeScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -26,18 +25,16 @@ const App = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          component={CardScreen}
-          name="card"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           component={SignUpScreen}
           name="signup"
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="Profile" component={CardScreen} />
+        <Stack.Screen
+          name="courseDetails"
+          component={CourseDetailsScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
-      
     </ClickProvider>
   );
 };

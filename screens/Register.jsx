@@ -16,9 +16,12 @@ const SignUpScreen = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSignUp = () => {
-    // Field Validation
     if (!name.trim()) {
       Alert.alert("Validation Error", "Name is required!");
+      return;
+    }
+    if (!/^[a-zA-Z\s]+$/.test(name)) {
+      Alert.alert("Validation Error", "Name should not contain numbers or special characters!");
       return;
     }
     if (!email.trim()) {
@@ -45,11 +48,9 @@ const SignUpScreen = ({ navigation }) => {
       return;
     }
 
-    // If all validations pass
     Alert.alert("Success", "Sign-up successful!");
     navigation.navigate("login");
 
-    // Add signup logic here (e.g., API call)
   };
 
   return (
@@ -116,16 +117,16 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    resizeMode: "cover", // Ensures the image scales to cover the screen
+    resizeMode: "cover", 
     justifyContent: "center",
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0, 0, 0, 0.3)", // Optional dimming overlay
+    backgroundColor: "rgba(0, 0, 0, 0.3)", 
   },
   contentContainer: {
     padding: 20,
-    backgroundColor: "rgba(255, 255, 255, 0.85)", // Slightly transparent white
+    backgroundColor: "rgba(255, 255, 255, 0.85)", 
     borderRadius: 10,
     marginHorizontal: 20,
   },
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   signinText: {
-    color: "#3399FF", // Blue text for SignIn
+    color: "#3399FF",
     fontWeight: "bold",
   },
 });

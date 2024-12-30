@@ -13,15 +13,37 @@ const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    if (username.trim() && password.trim()) {
-      // Navigate to the Home screen and pass the username
-      navigation.navigate("home", { username });
-    } else {
+  const validateFields = () => {
+
+    const trimmedUsername = username.trim();
+    const trimmedPassword = password.trim();
+
+
+    if (!trimmedUsername || !trimmedPassword) {
+      Alert.alert("Validation Error", "Both fields are required!");
+      return false;
+    }
+    if (!/^[a-zA-Z\s]+$/.test(username)) {
+          Alert.alert("Validation Error", "Username should not contain numbers or special characters!");
+          return;
+        }
+
+    if (trimmedPassword.length < 6) {
       Alert.alert(
         "Validation Error",
-        "Please enter both username and password"
+        "Password must be at least 6 characters long."
       );
+      return false;
+    }
+
+    return true;
+  };
+
+ 
+
+  const handleLogin = () => {
+    if (validateFields()) {
+      navigation.navigate("home", { username });
     }
   };
 
@@ -76,12 +98,12 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    resizeMode: "cover", // Ensures the image scales to cover the screen
+    resizeMode: "cover",
     justifyContent: "center",
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0, 0, 0, 0.3)", // Optional dimming overlay
+    backgroundColor: "rgba(0, 0, 0, 0.3)", 
   },
   helloContainer: {
     alignItems: "center",
@@ -91,11 +113,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 70,
     fontWeight: "500",
-    color: "#340aa8", // Contrasting color for visibility
+    color: "#340aa8", 
   },
   loginpagecontainer: {
     padding: 20,
-    backgroundColor: "rgba(255, 255, 255, 0.8)", // Slightly transparent background
+    backgroundColor: "rgba(255, 255, 255, 0.8)", 
     borderRadius: 10,
     marginHorizontal: 20,
   },
